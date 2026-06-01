@@ -105,7 +105,7 @@
           <p>The sauce that started it all. Cayennes, cider vinegar, a touch of honey from Jed's brother-in-law's bees. Good on eggs, grits, or a bad attitude.</p>
           <div class="price-row">
             <span class="price">$12</span>
-            <a class="btn btn-buy" href="https://square.link/u/REPLACE_WITH_ORIGINAL_LINK" data-product="original" target="_blank" rel="noopener">Add to the Cart</a>
+            <a class="btn btn-buy" href="#contact" data-product="original" data-checkout-url="TODO_ORIGINAL_SQUARE_LINK">Add to the Cart</a>
           </div>
         </div>
       </article>
@@ -134,7 +134,7 @@
           <p>Carolina reapers smoked over hickory for eight long hours. This ain't a dare &mdash; it's a commitment. Keep the milk close and the regrets closer.</p>
           <div class="price-row">
             <span class="price">$16</span>
-            <a class="btn btn-buy" href="https://square.link/u/REPLACE_WITH_REAPER_LINK" data-product="reaper" target="_blank" rel="noopener">Add to the Cart</a>
+            <a class="btn btn-buy" href="#contact" data-product="reaper" data-checkout-url="TODO_REAPER_SQUARE_LINK">Add to the Cart</a>
           </div>
         </div>
       </article>
@@ -162,7 +162,7 @@
           <p>Sweet, sassy, and a little sneaky. Ripe mango, habanero bite, and a whisper of corn liquor. Splash it on fish tacos and watch folks cry tears of joy.</p>
           <div class="price-row">
             <span class="price">$14</span>
-            <a class="btn btn-buy" href="https://square.link/u/REPLACE_WITH_MANGO_LINK" data-product="mango" target="_blank" rel="noopener">Add to the Cart</a>
+            <a class="btn btn-buy" href="#contact" data-product="mango" data-checkout-url="TODO_MANGO_SQUARE_LINK">Add to the Cart</a>
           </div>
         </div>
       </article>
@@ -177,7 +177,7 @@
       </div>
       <div class="bundle-buy">
         <span class="price price-big">$38 <span class="price-strike">$42</span></span>
-        <a class="btn btn-primary btn-big" href="https://square.link/u/REPLACE_WITH_TRIO_LINK" target="_blank" rel="noopener">Grab the Trio</a>
+        <a class="btn btn-primary btn-big" href="#contact" data-checkout-url="TODO_TRIO_SQUARE_LINK">Grab the Trio</a>
       </div>
     </div>
   </section>
@@ -274,14 +274,19 @@
       revealTargets.forEach(t => io.observe(t));
     }
 
-    // Friendly reminder if Square checkout links haven't been set
-    document.querySelectorAll('a.btn-buy, a[href*="REPLACE_WITH"]').forEach(a => {
-      if (a.href.includes('REPLACE_WITH')) {
-        a.addEventListener('click', (e) => {
-          e.preventDefault();
-          alert("Howdy! Square Checkout Link ain't hooked up yet.\n\nOpen index.html and replace the REPLACE_WITH_*_LINK URLs with your Square Checkout Links from squareup.com/dashboard → Online → Checkout Links.");
-        });
+    document.querySelectorAll('[data-checkout-url]').forEach(button => {
+      const checkoutUrl = button.dataset.checkoutUrl;
+      if (checkoutUrl && checkoutUrl.startsWith('https://')) {
+        button.href = checkoutUrl;
+        button.target = '_blank';
+        button.rel = 'noopener';
+        return;
       }
+
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("Checkout isn't live yet. This prototype is ready for Square Checkout Links when the store is ready.");
+      });
     });
   </script>
 </body>

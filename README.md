@@ -15,7 +15,7 @@ python3 -m http.server 8000
 
 ## Hooking up Square checkout
 
-The "Add to the Cart" / "Grab the Trio" buttons currently point to placeholder URLs. To make them live:
+The "Add to the Cart" / "Grab the Trio" buttons are wired for prototype mode. They keep safe placeholder values in `data-checkout-url`, while `href="#contact"` prevents fake checkout links from shipping. To make checkout live, create Square Checkout Links and replace the placeholder `data-checkout-url` values with your Square URLs.
 
 ### 1. Create your Square account
 
@@ -54,27 +54,25 @@ Square gives you a short URL like `https://square.link/u/abc12345`. Copy it.
 
 ### 5. Paste the URLs into the site
 
-Open `index.html` and find/replace each placeholder with the matching Square short code (everything after `square.link/u/`):
+Open `index.html` and replace each product button's `data-checkout-url` value with the matching Square short URL:
 
-| Placeholder                  | Which button             |
-| ---------------------------- | ------------------------ |
-| `REPLACE_WITH_ORIGINAL_LINK` | Original Hollerin' Hot   |
-| `REPLACE_WITH_REAPER_LINK`   | Smokehouse Reaper        |
-| `REPLACE_WITH_MANGO_LINK`    | Moonshine Mango Habanero |
-| `REPLACE_WITH_TRIO_LINK`     | Whole Dang Trio bundle   |
+| Placeholder                 | Which button              |
+| --------------------------- | ------------------------- |
+| `TODO_ORIGINAL_SQUARE_LINK` | Original Hollerin' Hot    |
+| `TODO_REAPER_SQUARE_LINK`   | Smokehouse Reaper         |
+| `TODO_MANGO_SQUARE_LINK`    | Moonshine Mango Habanero  |
+| `TODO_TRIO_SQUARE_LINK`     | Whole Dang Trio bundle    |
 
 For example:
 ```
-https://square.link/u/REPLACE_WITH_ORIGINAL_LINK
+data-checkout-url="TODO_ORIGINAL_SQUARE_LINK"
 ```
 becomes
 ```
-https://square.link/u/abc12345
+data-checkout-url="https://square.link/u/abc12345"
 ```
 
-Commit and push. That's it — Square handles the checkout page, receipts, tax, shipping address collection, and inventory decrement.
-
-Until you replace the placeholders, clicking a Buy button pops up a friendly reminder instead of opening Square.
+The page script will automatically turn any `https://` checkout value into a new-tab checkout link. Until then, prototype clicks show a reminder that checkout is not live. Commit and push when the real links are in place.
 
 ### Bonus: also selling in person?
 

@@ -9,10 +9,15 @@ REPO_DESC="Website for Hillbilly Jed's Hot Sauce — hand crafted in North Carol
 
 cd "$(dirname "$0")"
 
-echo "→ Cleaning any previous git state"
-# sudo may be needed if the earlier sandbox attempt left files behind
 if [ -d .git ]; then
-  rm -rf .git 2>/dev/null || sudo rm -rf .git
+  echo "❌ This directory is already a Git repository."
+  echo "   This first-time publishing helper will not replace existing git history or remotes."
+  echo "   To publish current changes, use the normal workflow:"
+  echo "     git status"
+  echo "     git add ."
+  echo "     git commit -m \"Update website\""
+  echo "     git push origin main"
+  exit 1
 fi
 
 echo "→ Checking for gh CLI"
@@ -52,14 +57,16 @@ echo ""
 echo "✅ Repo created and pushed: $REPO_URL"
 echo ""
 echo "→ Enabling GitHub Pages (free hosting)"
-gh api --silent -X POST "repos/$GH_USER/$REPO_NAME/pages" \
+if gh api --silent -X POST "repos/$GH_USER/$REPO_NAME/pages" \
   -f "source[branch]=main" \
-  -f "source[path]=/" 2>/dev/null && \
-  echo "✅ GitHub Pages enabled. Your site will be live at:" && \
-  echo "   $PAGES_URL" && \
-  echo "   (give it 1-2 minutes to build the first time)" || \
+  -f "source[path]=/" 2>/dev/null; then
+  echo "✅ GitHub Pages enabled. Your site will be live at:"
+  echo "   $PAGES_URL"
+  echo "   (give it 1-2 minutes to build the first time)"
+else
   echo "ℹ️  Pages API couldn't auto-enable — do it manually:"
   echo "   Open $REPO_URL/settings/pages and set 'Deploy from a branch' → main → / (root)"
+fi
 
 echo ""
 echo "Done! 🌶️"
