@@ -94,6 +94,7 @@ For a custom domain (e.g. `hillbillyjeds.com`), add a `CNAME` file with the doma
 .
 ├── index.html              # The whole page
 ├── styles.css              # All the hillbilly flavor
+├── script.js               # Client-side behavior (nav, reveal, checkout wiring)
 ├── favicon.svg             # Browser tab icon
 ├── images/
 │   ├── banner.webp         # Jed's logo/banner (served to modern browsers)
