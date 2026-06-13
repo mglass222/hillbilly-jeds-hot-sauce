@@ -1,5 +1,7 @@
 # Hillbilly Jed's Hot Sauce
 
+🌶️ **[View the live site →](https://mglass222.github.io/hillbilly-jeds-hot-sauce/)**
+
 Small-batch hot sauce hand crafted in North Carolina by Jeff "Jed" Briggs.
 
 This repo is the public website for the brand. Static HTML + CSS, no build step. Checkout is handled through **Square Online Checkout Links** so no backend server is required — the site can be hosted for free on GitHub Pages.
